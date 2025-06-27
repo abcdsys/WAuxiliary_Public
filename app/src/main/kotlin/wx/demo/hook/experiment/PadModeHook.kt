@@ -1,6 +1,6 @@
 package wx.demo.hook.experiment
 
-import me.hd.wauxv.data.config.DescriptorData
+import me.hd.wauxv.data.config.DexDescData
 import me.hd.wauxv.hook.anno.HookAnno
 import me.hd.wauxv.hook.anno.ViewAnno
 import me.hd.wauxv.hook.base.SwitchHook
@@ -14,8 +14,8 @@ import org.luckypray.dexkit.DexKitBridge
 @HookAnno
 @ViewAnno
 object PadModeHook : SwitchHook("PadModeHook"), IDexFind {
-    private object MethodIsPadDevice : DescriptorData("PadModeHook.MethodIsPadDevice")
-    private object MethodIsFoldableDevice : DescriptorData("PadModeHook.MethodIsFoldableDevice")
+    private object MethodIsPadDevice : DexDescData("PadModeHook.MethodIsPadDevice")
+    private object MethodIsFoldableDevice : DexDescData("PadModeHook.MethodIsFoldableDevice")
 
     override val location = "实验"
     override val funcName = "平板模式"
@@ -41,6 +41,7 @@ object PadModeHook : SwitchHook("PadModeHook"), IDexFind {
     override fun dexFind(dexKit: DexKitBridge) {
         MethodIsPadDevice.findDexClassMethod(dexKit) {
             onMethod {
+                searchPackages("com.tencent.mm.ui")
                 matcher {
                     usingEqStrings("Lenovo TB-9707F")
                 }
@@ -48,6 +49,7 @@ object PadModeHook : SwitchHook("PadModeHook"), IDexFind {
         }
         MethodIsFoldableDevice.findDexClassMethod(dexKit) {
             onMethod {
+                searchPackages("com.tencent.mm.ui")
                 matcher {
                     usingEqStrings("isRoyoleFoldableDevice!!!")
                 }

@@ -1,7 +1,7 @@
 package wx.demo.hook.misc
 
 import android.content.Intent
-import me.hd.wauxv.data.config.DescriptorData
+import me.hd.wauxv.data.config.DexDescData
 import me.hd.wauxv.hook.anno.HookAnno
 import me.hd.wauxv.hook.anno.ViewAnno
 import me.hd.wauxv.hook.base.SwitchHook
@@ -15,7 +15,7 @@ import org.luckypray.dexkit.DexKitBridge
 @HookAnno
 @ViewAnno
 object MultiWebViewHook : SwitchHook("MultiWebViewHook"), IDexFind {
-    private object MethodStart : DescriptorData("MultiWebViewHook.MethodStart")
+    private object MethodStart : DexDescData("MultiWebViewHook.MethodStart")
 
     override val location = "杂项"
     override val funcName = "文章多开窗口"

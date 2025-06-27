@@ -1,4 +1,4 @@
-package wx.demo.hook.misc
+package wx.demo.hook.flutterbiz
 
 import android.content.ComponentName
 import android.content.Intent
@@ -14,7 +14,7 @@ import org.lsposed.lsparanoid.Obfuscate
 @HookAnno
 @ViewAnno
 object NewBizListHook : SwitchHook("NewBizListHook"), IStartActivity {
-    override val location = "杂项"
+    override val location = "订阅号"
     override val funcName = "订阅消息列表"
     override val funcDesc = "订阅号消息从瀑布流模式改为列表模式"
 
@@ -23,14 +23,11 @@ object NewBizListHook : SwitchHook("NewBizListHook"), IStartActivity {
 
     override fun onStartActivityIntent(param: HookParam, intent: Intent) {
         if (!isEnabled) return
-        val bizFlutterView = "com.tencent.mm.plugin.brandservice.ui.flutter.BizFlutterTLFlutterViewActivity"
-        val bizTimeLine = "com.tencent.mm.plugin.brandservice.ui.timeline.BizTimeLineUI"
-        val flutterView = "com.tencent.mm.plugin.flutter.ui.MMFlutterViewActivity"
         when (intent.component?.className) {
-            bizFlutterView, bizTimeLine, flutterView -> {
+            "com.tencent.mm.plugin.brandservice.ui.flutter.BizFlutterTLFlutterViewActivity",
+            "com.tencent.mm.plugin.brandservice.ui.timeline.BizTimeLineUI" -> {
                 intent.component = ComponentName(HostInfo.appPackageName, "com.tencent.mm.ui.conversation.NewBizConversationUI")
             }
         }
-
     }
 }

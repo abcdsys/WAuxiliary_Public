@@ -1,6 +1,6 @@
 package wx.demo.hook.chat
 
-import me.hd.wauxv.data.config.DescriptorData
+import me.hd.wauxv.data.config.DexDescData
 import me.hd.wauxv.hook.anno.HookAnno
 import me.hd.wauxv.hook.anno.ViewAnno
 import me.hd.wauxv.hook.base.SwitchHook
@@ -14,7 +14,7 @@ import org.luckypray.dexkit.DexKitBridge
 @HookAnno
 @ViewAnno
 object AntiRevoke1Hook : SwitchHook("AntiRevoke1Hook"), IDexFind {
-    private object MethodDoRevokeMsg : DescriptorData("AntiRevoke1Hook.MethodDoRevokeMsg")
+    private object MethodDoRevokeMsg : DexDescData("AntiRevoke1Hook.MethodDoRevokeMsg")
 
     override val location = "聊天"
     override val funcName = "阻止消息撤回1"

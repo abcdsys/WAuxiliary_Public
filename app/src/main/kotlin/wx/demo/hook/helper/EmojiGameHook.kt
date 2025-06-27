@@ -6,20 +6,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.RadioButton
 import android.widget.RadioGroup
-import com.highcapable.yukihookapi.hook.factory.field
-import com.highcapable.yukihookapi.hook.factory.method
+import com.highcapable.kavaref.KavaRef.Companion.resolve
+import com.highcapable.kavaref.condition.type.Modifiers
+import com.highcapable.kavaref.extension.classOf
 import com.highcapable.yukihookapi.hook.param.HookParam
-import com.highcapable.yukihookapi.hook.type.java.IntType
 import me.hd.wauxv.data.config.DefaultData
-import me.hd.wauxv.data.config.DescriptorData
+import me.hd.wauxv.data.config.DexDescData
 import me.hd.wauxv.databinding.ModuleDialogEmojiGameBinding
 import me.hd.wauxv.factory.showDialog
 import me.hd.wauxv.hook.anno.HookAnno
 import me.hd.wauxv.hook.anno.ViewAnno
 import me.hd.wauxv.hook.base.SwitchHook
 import me.hd.wauxv.hook.core.dex.IDexFind
-import me.hd.wauxv.hook.factory.helper.utils.ActivityHelper
 import me.hd.wauxv.hook.factory.findDexClassMethod
+import me.hd.wauxv.hook.factory.helper.utils.ActivityHelper
 import me.hd.wauxv.hook.factory.toDexMethod
 import org.lsposed.lsparanoid.Obfuscate
 import org.luckypray.dexkit.DexKitBridge
@@ -45,8 +45,8 @@ object EmojiGameHook : SwitchHook("EmojiGameHook"), IDexFind {
         SIX(5, "六"),
     }
 
-    private object MethodRandom : DescriptorData("EmojiGameHook.MethodRandom")
-    private object MethodPanelClick : DescriptorData("EmojiGameHook.MethodPanelClick")
+    private object MethodRandom : DexDescData("EmojiGameHook.MethodRandom")
+    private object MethodPanelClick : DexDescData("EmojiGameHook.MethodPanelClick")
     private object ValMorra : DefaultData("EmojiGameHook.ValMorra", intDefVal = 0)
     private object ValDice : DefaultData("EmojiGameHook.ValDice", intDefVal = 0)
 
@@ -171,10 +171,10 @@ object EmojiGameHook : SwitchHook("EmojiGameHook"), IDexFind {
             hook {
                 beforeIfEnabled {
                     val obj = args(3).any()!!
-                    val infoType = obj::class.java.field { modifiers { isFinal };type = IntType }.get(obj).int()
+                    val infoType = obj.resolve().firstField { modifiers(Modifiers.FINAL);type = Int::class }.get<Int>()!!
                     if (infoType == 0) {
-                        val emojiInfo = obj::class.java.field { type = "com.tencent.mm.api.IEmojiInfo" }.get(obj).any()!!
-                        val emojiMd5 = emojiInfo::class.java.method { name = "getMd5" }.get(emojiInfo).string()
+                        val emojiInfo = obj.resolve().firstField { type = "com.tencent.mm.api.IEmojiInfo" }.get()!!
+                        val emojiMd5 = emojiInfo.resolve().firstMethod { name = "getMd5" }.invoke<String>()!!
                         when (emojiMd5) {
                             MD5_MORRA -> showSelectMorra(this)
                             MD5_DICE -> showSelectDice(this)
@@ -188,9 +188,10 @@ object EmojiGameHook : SwitchHook("EmojiGameHook"), IDexFind {
     override fun dexFind(dexKit: DexKitBridge) {
         MethodRandom.findDexClassMethod(dexKit) {
             onMethod {
+                searchPackages("com.tencent.mm.sdk.platformtools")
                 matcher {
-                    returnType(IntType)
-                    paramTypes(IntType, IntType)
+                    returnType(classOf<Int>())
+                    paramTypes(classOf<Int>(), classOf<Int>())
                     invokeMethods {
                         add { name = "currentTimeMillis" }
                         add { name = "nextInt" }

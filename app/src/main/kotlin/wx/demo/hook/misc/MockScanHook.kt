@@ -1,6 +1,6 @@
 package wx.demo.hook.misc
 
-import me.hd.wauxv.data.config.DescriptorData
+import me.hd.wauxv.data.config.DexDescData
 import me.hd.wauxv.hook.anno.HookAnno
 import me.hd.wauxv.hook.anno.ViewAnno
 import me.hd.wauxv.hook.base.SwitchHook
@@ -20,7 +20,7 @@ object MockScanHook : SwitchHook("MockScanHook"), IDexFind {
         LONG_PRESS_SCAN(4, 37)// 长按图片识别
     }
 
-    private object MethodQBarString : DescriptorData("MockScanHook.MethodQBarString")
+    private object MethodQBarString : DexDescData("MockScanHook.MethodQBarString")
 
     override val location = "杂项"
     override val funcName = "模拟相机扫码"
