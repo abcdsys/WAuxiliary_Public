@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.RadioButton
 import android.widget.RadioGroup
-import com.highcapable.kavaref.KavaRef.Companion.resolve
+import com.highcapable.kavaref.KavaRef.Companion.asResolver
 import com.highcapable.kavaref.condition.type.Modifiers
 import com.highcapable.kavaref.extension.classOf
 import com.highcapable.yukihookapi.hook.param.HookParam
@@ -171,10 +171,10 @@ object EmojiGameHook : SwitchHook("EmojiGameHook"), IDexFind {
             hook {
                 beforeIfEnabled {
                     val obj = args(3).any()!!
-                    val infoType = obj.resolve().firstField { modifiers(Modifiers.FINAL);type = Int::class }.get<Int>()!!
+                    val infoType = obj.asResolver().firstField { modifiers(Modifiers.FINAL);type = Int::class }.get<Int>()!!
                     if (infoType == 0) {
-                        val emojiInfo = obj.resolve().firstField { type = "com.tencent.mm.api.IEmojiInfo" }.get()!!
-                        val emojiMd5 = emojiInfo.resolve().firstMethod { name = "getMd5" }.invoke<String>()!!
+                        val emojiInfo = obj.asResolver().firstField { type = "com.tencent.mm.api.IEmojiInfo" }.get()!!
+                        val emojiMd5 = emojiInfo.asResolver().firstMethod { name = "getMd5" }.invoke<String>()!!
                         when (emojiMd5) {
                             MD5_MORRA -> showSelectMorra(this)
                             MD5_DICE -> showSelectDice(this)

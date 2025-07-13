@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Button
+import com.highcapable.kavaref.KavaRef.Companion.asResolver
 import com.highcapable.kavaref.KavaRef.Companion.resolve
 import me.hd.wauxv.data.config.DefaultData
 import me.hd.wauxv.databinding.ModuleDialogAutoLoginWinBinding
@@ -67,7 +68,7 @@ object AutoLoginWinHook : SwitchHook("AutoLoginWinHook") {
                 emptyParameters()
             }.hook {
                 afterIfEnabled {
-                    val button = instance.resolve().firstField {
+                    val button = instance.asResolver().firstField {
                         type = Button::class
                     }.get<Button>()!!
                     button.callOnClick()

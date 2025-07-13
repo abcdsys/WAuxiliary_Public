@@ -2,6 +2,7 @@ package wx.demo.hook.chat
 
 import android.widget.Button
 import androidx.core.view.isVisible
+import com.highcapable.kavaref.KavaRef.Companion.asResolver
 import com.highcapable.kavaref.KavaRef.Companion.resolve
 import me.hd.wauxv.hook.anno.HookAnno
 import me.hd.wauxv.hook.anno.ViewAnno
@@ -22,7 +23,7 @@ object AutoViewOriginalPhotoHook : SwitchHook("AutoViewOriginalPhotoHook") {
             name = "initView"
         }.hook {
             afterIfEnabled {
-                instance.resolve().field {
+                instance.asResolver().field {
                     type = Button::class
                 }.forEach {
                     it.get<Button>()?.let { imgBtn ->

@@ -2,7 +2,7 @@ package wx.demo.hook.helper
 
 import android.view.LayoutInflater
 import android.view.View
-import com.highcapable.kavaref.KavaRef.Companion.resolve
+import com.highcapable.kavaref.KavaRef.Companion.asResolver
 import me.hd.wauxv.data.config.DefaultData
 import me.hd.wauxv.data.config.DexDescData
 import me.hd.wauxv.databinding.ModuleDialogVoiceLengthBinding
@@ -49,7 +49,7 @@ object VoiceLengthHook : SwitchHook("VoiceLengthHook"), IDexFind {
                         else -> return@beforeIfEnabled
                     }
                     val obj = args(objIndex).any()!!
-                    obj.resolve().firstField {
+                    obj.asResolver().firstField {
                         name = "l"
                         type = Int::class
                     }.set(ValVoiceLength.intVal * 1000)

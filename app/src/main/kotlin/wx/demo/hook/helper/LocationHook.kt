@@ -13,6 +13,7 @@ import android.widget.LinearLayout
 import android.widget.RadioGroup
 import androidx.core.widget.addTextChangedListener
 import androidx.core.widget.doAfterTextChanged
+import com.highcapable.kavaref.KavaRef.Companion.asResolver
 import com.highcapable.kavaref.KavaRef.Companion.resolve
 import me.hd.wauxv.data.config.DefaultData
 import me.hd.wauxv.data.config.DexDescData
@@ -88,7 +89,7 @@ object LocationHook : SwitchHook("LocationHook"), IDexFind {
                 if (requestCode == 6 && resultCode == Activity.RESULT_OK) {
                     val intent = args(2).cast<Intent>()!!
                     val locationIntent = intent.getParcelableExtra<Parcelable>("KLocationIntent")!!
-                    val locationDataStr = locationIntent.resolve().firstMethod { returnType = String::class }.invoke<String>()!!
+                    val locationDataStr = locationIntent.asResolver().firstMethod { returnType = String::class }.invoke<String>()!!
                     val pattern = Regex("lat ([-+]?[0-9]*\\.?[0-9]+);lng ([-+]?[0-9]*\\.?[0-9]+);")
                     val match = pattern.find(locationDataStr)
                     if (match != null && match.groupValues.size == 3) {
@@ -106,7 +107,7 @@ object LocationHook : SwitchHook("LocationHook"), IDexFind {
                 hook {
                     beforeIfEnabled {
                         args(0).any()?.also { location ->
-                            location.resolve().apply {
+                            location.asResolver().apply {
                                 firstMethod { name = "getLatitude" }.hook {
                                     beforeIfEnabled {
                                         result = ValLatitude.floatVal.toDouble()
