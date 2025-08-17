@@ -18,7 +18,7 @@ object AntiRevoke1Hook : SwitchHook("AntiRevoke1Hook"), IDexFind {
 
     override val location = "聊天"
     override val funcName = "阻止消息撤回1"
-    override val funcDesc = "无撤回提示, 流畅款, 3选1"
+    override val funcDesc = "消息无撤回提示，流畅款，三款选一款"
 
     override fun initOnce() {
         MethodDoRevokeMsg.toDexMethod {

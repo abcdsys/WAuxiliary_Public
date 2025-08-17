@@ -75,20 +75,18 @@ object EmojiGameHook : SwitchHook("EmojiGameHook"), IDexFind {
             title = funcName
             view = binding.root
             positiveButton("保存") {
-                ValMorra.intVal = when (binding.moduleDialogRgEmojiGameMorra.checkedRadioButtonId) {
-                    binding.moduleDialogRbEmojiGameMorra0.id -> MorraType.SCISSORS.index
-                    binding.moduleDialogRbEmojiGameMorra1.id -> MorraType.STONE.index
-                    binding.moduleDialogRbEmojiGameMorra2.id -> MorraType.PAPER.index
-                    else -> MorraType.SCISSORS.index
+                when (binding.moduleDialogRgEmojiGameMorra.checkedRadioButtonId) {
+                    binding.moduleDialogRbEmojiGameMorra0.id -> ValMorra.intVal = MorraType.SCISSORS.index
+                    binding.moduleDialogRbEmojiGameMorra1.id -> ValMorra.intVal = MorraType.STONE.index
+                    binding.moduleDialogRbEmojiGameMorra2.id -> ValMorra.intVal = MorraType.PAPER.index
                 }
-                ValDice.intVal = when (binding.moduleDialogRgEmojiGameDice.checkedRadioButtonId) {
-                    binding.moduleDialogRbEmojiGameDice1.id -> DiceFace.ONE.index
-                    binding.moduleDialogRbEmojiGameDice2.id -> DiceFace.TWO.index
-                    binding.moduleDialogRbEmojiGameDice3.id -> DiceFace.THREE.index
-                    binding.moduleDialogRbEmojiGameDice4.id -> DiceFace.FOUR.index
-                    binding.moduleDialogRbEmojiGameDice5.id -> DiceFace.FIVE.index
-                    binding.moduleDialogRbEmojiGameDice6.id -> DiceFace.SIX.index
-                    else -> DiceFace.ONE.index
+                when (binding.moduleDialogRgEmojiGameDice.checkedRadioButtonId) {
+                    binding.moduleDialogRbEmojiGameDice1.id -> ValDice.intVal = DiceFace.ONE.index
+                    binding.moduleDialogRbEmojiGameDice2.id -> ValDice.intVal = DiceFace.TWO.index
+                    binding.moduleDialogRbEmojiGameDice3.id -> ValDice.intVal = DiceFace.THREE.index
+                    binding.moduleDialogRbEmojiGameDice4.id -> ValDice.intVal = DiceFace.FOUR.index
+                    binding.moduleDialogRbEmojiGameDice5.id -> ValDice.intVal = DiceFace.FIVE.index
+                    binding.moduleDialogRbEmojiGameDice6.id -> ValDice.intVal = DiceFace.SIX.index
                 }
             }
             negativeButton()
