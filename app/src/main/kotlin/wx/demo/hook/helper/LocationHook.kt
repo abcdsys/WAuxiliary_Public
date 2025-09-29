@@ -27,10 +27,8 @@ import me.hd.wauxv.hook.core.dex.IDexFind
 import me.hd.wauxv.hook.factory.findDexClassMethod
 import me.hd.wauxv.hook.factory.toDexMethod
 import me.hd.wauxv.hook.factory.toLazyAppClass
-import org.lsposed.lsparanoid.Obfuscate
 import org.luckypray.dexkit.DexKitBridge
 
-@Obfuscate
 @HookAnno
 @ViewAnno
 object LocationHook : SwitchHook("LocationHook"), IDexFind {
@@ -60,7 +58,7 @@ object LocationHook : SwitchHook("LocationHook"), IDexFind {
         layoutView.context.showDialog {
             title = funcName
             view = binding.root
-            positiveButton {
+            positiveButton("保存") {
                 ValLatitude.floatVal = binding.moduleDialogEdtLocationLatitude.text.toString().toFloat()
                 ValLongitude.floatVal = binding.moduleDialogEdtLocationLongitude.text.toString().toFloat()
             }

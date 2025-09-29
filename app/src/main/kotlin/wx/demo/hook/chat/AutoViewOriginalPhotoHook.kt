@@ -6,18 +6,16 @@ import com.highcapable.kavaref.KavaRef.Companion.asResolver
 import me.hd.wauxv.data.config.DexDescData
 import me.hd.wauxv.data.factory.WxPlayVersion
 import me.hd.wauxv.data.factory.WxVersion
-import me.hd.wauxv.data.factory.reqHighOrEqualsWxPlayVer
-import me.hd.wauxv.data.factory.reqHighOrEqualsWxVer
+import me.hd.wauxv.data.factory.isAtLeast
+import me.hd.wauxv.data.factory.isAtLeastPlay
 import me.hd.wauxv.hook.anno.HookAnno
 import me.hd.wauxv.hook.anno.ViewAnno
 import me.hd.wauxv.hook.base.SwitchHook
 import me.hd.wauxv.hook.core.dex.IDexFind
 import me.hd.wauxv.hook.factory.findDexClassMethod
 import me.hd.wauxv.hook.factory.toDexMethod
-import org.lsposed.lsparanoid.Obfuscate
 import org.luckypray.dexkit.DexKitBridge
 
-@Obfuscate
 @HookAnno
 @ViewAnno
 object AutoViewOriginalPhotoHook : SwitchHook("AutoViewOriginalPhotoHook"), IDexFind {
@@ -59,7 +57,7 @@ object AutoViewOriginalPhotoHook : SwitchHook("AutoViewOriginalPhotoHook"), IDex
             onMethod {
                 matcher {
                     declaredClass = "com.tencent.mm.ui.chatting.gallery.ImageGalleryUI"
-                    if (reqHighOrEqualsWxVer(WxVersion.V8_0_54) || reqHighOrEqualsWxPlayVer(WxPlayVersion.V8_0_54_PLAY)) {
+                    if (isAtLeast(WxVersion.V8_0_54) || isAtLeastPlay(WxPlayVersion.V8_0_54_PLAY)) {
                         usingEqStrings("setHdImageActionDownloadable")
                     } else {
                         usingEqStrings("setImageHdImgBtnVisibility")

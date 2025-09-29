@@ -21,12 +21,10 @@ import me.hd.wauxv.hook.core.dex.IDexFind
 import me.hd.wauxv.hook.factory.findDexClassMethod
 import me.hd.wauxv.hook.factory.helper.utils.ActivityHelper
 import me.hd.wauxv.hook.factory.toDexMethod
-import org.lsposed.lsparanoid.Obfuscate
 import org.luckypray.dexkit.DexKitBridge
 import org.luckypray.dexkit.query.enums.MatchType
 import kotlin.random.Random
 
-@Obfuscate
 @HookAnno
 @ViewAnno
 object EmojiGameHook : SwitchHook("EmojiGameHook"), IDexFind {

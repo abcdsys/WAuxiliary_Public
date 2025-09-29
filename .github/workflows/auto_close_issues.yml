@@ -1,0 +1,16 @@
+name: Auto Close Issues
+
+on:
+  issues:
+    types: [opened]
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - if: contains(github.event.issue.body, '最新')
+        id: close-latest-version
+        name: Close Issue
+        uses: peter-evans/close-issue@v3
+        with:
+          comment: 我不知道什么是最新捏，具体版本号pls
