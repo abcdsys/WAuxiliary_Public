@@ -13,10 +13,8 @@ import me.hd.wauxv.hook.base.SwitchHook
 import me.hd.wauxv.hook.core.dex.IDexFind
 import me.hd.wauxv.hook.factory.findDexClassMethod
 import me.hd.wauxv.hook.factory.toDexMethod
-import org.lsposed.lsparanoid.Obfuscate
 import org.luckypray.dexkit.DexKitBridge
 
-@Obfuscate
 @HookAnno
 @ViewAnno
 object VoiceLengthHook : SwitchHook("VoiceLengthHook"), IDexFind {

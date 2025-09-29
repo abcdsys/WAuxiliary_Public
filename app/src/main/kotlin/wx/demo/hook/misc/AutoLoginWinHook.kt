@@ -14,9 +14,7 @@ import me.hd.wauxv.hook.anno.HookAnno
 import me.hd.wauxv.hook.anno.ViewAnno
 import me.hd.wauxv.hook.base.SwitchHook
 import me.hd.wauxv.hook.factory.toAppClass
-import org.lsposed.lsparanoid.Obfuscate
 
-@Obfuscate
 @HookAnno
 @ViewAnno
 object AutoLoginWinHook : SwitchHook("AutoLoginWinHook") {

@@ -6,9 +6,7 @@ import me.hd.wauxv.hook.anno.HookAnno
 import me.hd.wauxv.hook.anno.ViewAnno
 import me.hd.wauxv.hook.base.SwitchHook
 import me.hd.wauxv.hook.core.api.IStartActivity
-import org.lsposed.lsparanoid.Obfuscate
 
-@Obfuscate
 @HookAnno
 @ViewAnno
 object AutoSelectOriginalPhotoHook : SwitchHook("AutoSelectOriginalPhotoHook"), IStartActivity {
